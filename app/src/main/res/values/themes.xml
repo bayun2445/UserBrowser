@@ -1,0 +1,33 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.UserBrowser" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/github_dark_blue</item>
+        <item name="colorPrimaryVariant">#3D444A</item>
+        <item name="colorOnPrimary">@color/github_white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/github_blue</item>
+        <item name="colorSecondaryVariant">#4D7DBA</item>
+        <item name="colorOnSecondary">@color/github_dark_blue</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:background">@drawable/bg_search_view</item>
+        <item name="queryBackground">@android:color/transparent</item>
+        <item name="android:textColor">@color/github_dark_blue</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+    <style name="Theme.UserBrowser.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.GitHubUserBrowser.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.GitHubUserBrowser.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="CircularProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/progress_bar</item>
+        <item name="android:indeterminateOnly">true</item>
+    </style>
+</resources>
