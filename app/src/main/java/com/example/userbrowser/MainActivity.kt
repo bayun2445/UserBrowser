@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.userbrowser.databinding.ActivityMainBinding
@@ -59,9 +58,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadUserData(listUser: List<UserItem?>?) {
         val adapter = UserAdapter(listUser)
+
+        //User item click listener
         adapter.setClicked(object : UserAdapter.ItemCLicked {
             override fun click(position: Int) {
-                Toast.makeText(this@MainActivity, "pos=$position", Toast.LENGTH_LONG).show()
+                //TODO: pass to detail activity
             }
         })
         binding.rvUsers.adapter = adapter
