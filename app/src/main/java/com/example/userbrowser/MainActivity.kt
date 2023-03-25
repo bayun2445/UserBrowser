@@ -1,5 +1,6 @@
 package com.example.userbrowser
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -62,7 +63,11 @@ class MainActivity : AppCompatActivity() {
         //User item click listener
         adapter.setClicked(object : UserAdapter.ItemCLicked {
             override fun click(position: Int) {
-                //TODO: pass to detail activity
+                val username = listUser?.get(position)?.login
+                Intent(this@MainActivity, DetailActivity::class.java).also {
+                    it.putExtra("username", username)
+                    startActivity(it)
+                }
             }
         })
         binding.rvUsers.adapter = adapter
