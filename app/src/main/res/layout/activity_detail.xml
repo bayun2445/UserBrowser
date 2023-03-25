@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="385dp"
+        android:layout_marginTop="-20dp"
+        app:cardBackgroundColor="@color/github_dark_blue"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_user_detail_avatar"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="70dp"
+                android:src="@drawable/bill_evans"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/tv_detail_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/username"
+                android:textColor="@color/github_white"
+                android:textSize="28sp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/civ_user_detail_avatar"
+                app:layout_constraintStart_toStartOf="@+id/civ_user_detail_avatar"
+                app:layout_constraintTop_toBottomOf="@id/civ_user_detail_avatar"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/tv_detail_full_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_italic"
+                android:text="@string/name"
+                android:textColor="@color/github_white"
+                app:layout_constraintEnd_toEndOf="@+id/tv_detail_username"
+                app:layout_constraintStart_toStartOf="@+id/tv_detail_username"
+                app:layout_constraintTop_toBottomOf="@id/tv_detail_username"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/tv_detail_public_repos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repos"
+                android:textColor="@color/github_white"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins"
+                app:layout_constraintEnd_toEndOf="@+id/tv_detail_full_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_detail_full_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_detail_full_name"
+                android:visibility="invisible"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
