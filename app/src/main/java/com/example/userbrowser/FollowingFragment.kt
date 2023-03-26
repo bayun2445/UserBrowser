@@ -36,7 +36,14 @@ class FollowingFragment : Fragment() {
         binding.rvFollowing.layoutManager = LinearLayoutManager(requireActivity())
 
         viewModel.followings.observe(requireActivity()) {
-            loadFollowings(it!!)
+            if (it!!.isNotEmpty()) {
+                loadFollowings(it)
+            } else {
+                binding.apply {
+                    tvFollowingNotFound.visibility = View.VISIBLE
+                    rvFollowing.visibility = View.GONE
+                }
+            }
         }
     }
 

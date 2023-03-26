@@ -14,4 +14,15 @@
         android:paddingBottom="70dp"
         android:clipToPadding="false"/>
 
+    <TextView
+        android:id="@+id/tv_following_not_found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/not_found"
+        android:textColor="#535353"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:fontFamily="@font/poppins"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"/>
 </FrameLayout>

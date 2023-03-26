@@ -39,7 +39,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.listUser.observe(this) {
-            loadUserData(it)
+            if (it!!.isEmpty()) {
+                binding.apply {
+                    tvNotFound.visibility = View.VISIBLE
+                    rvUsers.visibility = View.INVISIBLE
+                }
+            } else {
+                binding.tvNotFound.visibility = View.INVISIBLE
+                loadUserData(it)
+            }
         }
 
         viewModel.isLoading.observe(this) {
@@ -49,27 +57,36 @@ class MainActivity : AppCompatActivity() {
 
     private fun setProgressBar(loading: Boolean?) {
         if (loading == true) {
-            binding.rvUsers.visibility = View.INVISIBLE
-            binding.progressBar.visibility = View.VISIBLE
+            binding.apply {
+                rvUsers.visibility = View.INVISIBLE
+                progressBar.visibility = View.VISIBLE
+                tvNotFound.visibility = View.INVISIBLE
+            }
         } else {
-            binding.progressBar.visibility = View.INVISIBLE
-            binding.rvUsers.visibility = View.VISIBLE
+            binding.apply {
+                progressBar.visibility = View.INVISIBLE
+                rvUsers.visibility = View.VISIBLE
+            }
         }
     }
 
     private fun loadUserData(listUser: List<UserItem?>?) {
-        val adapter = UserAdapter(listUser)
+        val adapter = UserAdapter(listUser!!)
 
         //User item click listener
         adapter.setClicked(object : UserAdapter.ItemCLicked {
             override fun click(position: Int) {
-                val username = listUser?.get(position)?.login
+                val username = listUser[position]?.login
                 Intent(this@MainActivity, DetailActivity::class.java).also {
                     it.putExtra("username", username)
                     startActivity(it)
                 }
             }
         })
-        binding.rvUsers.adapter = adapter
+
+        binding.rvUsers.apply {
+            this.adapter = adapter
+            setHasFixedSize(true)
+        }
     }
 }

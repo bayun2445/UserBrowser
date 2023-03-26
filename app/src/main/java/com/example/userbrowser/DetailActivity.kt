@@ -30,28 +30,22 @@ class DetailActivity : AppCompatActivity() {
 
         binding.vpFollowersFollowing.adapter = SectionPagerAdapter(this)
 
-        TabLayoutMediator(
-            binding.tabFollowersFollowing,
-            binding.vpFollowersFollowing
-        ) { tab, position ->
-            tab.text = resources.getString(TAB_TITLES[position])
-        }.attach()
-
-        supportActionBar?.elevation = 0f
-
         observeViewModel()
 
+        supportActionBar?.elevation = 0f
     }
 
     private fun observeViewModel() {
         val username = intent.getStringExtra("username")
-        viewModel.getUserData(username)
 
-        viewModel.isLoading.observe(this) {
-            setProgressBar(it)
-        }
-        viewModel.userDetail.observe(this) {
-            loadUserDetail(it!!)
+        viewModel.apply {
+            getUserData(username)
+            isLoading.observe(this@DetailActivity) {
+                setProgressBar(it)
+            }
+            viewModel.userDetail.observe(this@DetailActivity) {
+                loadUserDetail(it!!)
+            }
         }
     }
 
@@ -61,23 +55,39 @@ class DetailActivity : AppCompatActivity() {
             .placeholder(R.color.github_white)
             .into(binding.civUserDetailAvatar)
 
-        binding.tvDetailUsername.text = userDetail.login
-        binding.tvDetailFullName.text = userDetail.name
-        binding.tvDetailPublicRepos.text =
-            StringBuilder(getString(R.string.repos))
-                .append(" ")
-                .append(userDetail.publicRepos.toString())
+        binding.apply {
+            tvDetailUsername.text = userDetail.login
+            tvDetailFullName.text = userDetail.name
+            tvDetailPublicRepos.text =
+                StringBuilder(getString(R.string.repos))
+                    .append(" ")
+                    .append(userDetail.publicRepos.toString())
+        }
+
+        val follsCount = intArrayOf(
+            userDetail.followers ?: 0,
+            userDetail.following ?: 0,
+        )
+
+        TabLayoutMediator(
+            binding.tabFollowersFollowing,
+            binding.vpFollowersFollowing
+        ) { tab, position ->
+            tab.text = "${resources.getString(TAB_TITLES[position])} (${follsCount[position]})"
+        }.attach()
     }
 
     private fun setProgressBar(loading: Boolean?) {
         if (loading == true) {
             binding.progressBar.visibility = View.VISIBLE
         } else {
-            binding.progressBar.visibility = View.GONE
-            binding.civUserDetailAvatar.visibility = View.VISIBLE
-            binding.tvDetailUsername.visibility = View.VISIBLE
-            binding.tvDetailFullName.visibility = View.VISIBLE
-            binding.tvDetailPublicRepos.visibility = View.VISIBLE
+            binding.apply {
+                progressBar.visibility = View.GONE
+                civUserDetailAvatar.visibility = View.VISIBLE
+                tvDetailUsername.visibility = View.VISIBLE
+                tvDetailFullName.visibility = View.VISIBLE
+                tvDetailPublicRepos.visibility = View.VISIBLE
+            }
         }
     }
 }
