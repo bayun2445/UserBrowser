@@ -12,12 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="searchViewStyle">@style/CustomSearchView</item>
     </style>
     <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:background">@drawable/bg_search_view</item>
         <item name="queryBackground">@android:color/transparent</item>
         <item name="android:textColor">@color/github_dark_blue</item>
-        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
     <style name="Theme.UserBrowser.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -29,5 +30,9 @@
     <style name="CircularProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:indeterminateDrawable">@drawable/progress_bar</item>
         <item name="android:indeterminateOnly">true</item>
+    </style>
+
+    <style name="PoppinsSearchView">
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 </resources>

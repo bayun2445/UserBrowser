@@ -8,6 +8,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_upper_container"
         android:layout_width="match_parent"
         android:layout_height="385dp"
         android:layout_marginTop="-20dp"
@@ -84,4 +85,20 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_followers_following"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_upper_container"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_followers_following"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_followers_following" />
 </androidx.constraintlayout.widget.ConstraintLayout>
