@@ -43,6 +43,12 @@ class FollowerFragment : Fragment() {
                 }
             }
         }
+
+        viewModel.isLoading.observe(requireActivity()) {
+            if (!it!!) {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
     }
 
     private fun loadFollowers(listFollowers: List<UserItem?>) {

@@ -25,4 +25,12 @@
         android:fontFamily="@font/poppins"
         android:layout_marginTop="20dp"
         android:visibility="invisible"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:indeterminate="true"
+        style="?android:progressBarStyle"/>
 </FrameLayout>
