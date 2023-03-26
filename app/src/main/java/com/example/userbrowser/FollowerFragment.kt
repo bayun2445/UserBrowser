@@ -15,10 +15,6 @@ class FollowerFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: DetailViewModel
 
-    companion object {
-        private const val TAG = "Follower Fragment"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,6 +24,10 @@ class FollowerFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -60,5 +60,9 @@ class FollowerFragment : Fragment() {
         })
 
         binding.rvFollower.adapter = adapter
+    }
+
+    companion object {
+        private const val TAG = "Follower Fragment"
     }
 }

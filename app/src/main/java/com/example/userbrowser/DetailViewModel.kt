@@ -19,10 +19,6 @@ class DetailViewModel: ViewModel() {
     val followers: LiveData<List<UserItem?>?> = _followers
     val followings: LiveData<List<UserItem?>?> = _followings
 
-    companion object {
-        private val TAG = DetailViewModel::class.java.simpleName
-    }
-
     fun getUserData(username: String?) {
         Thread {
             getUserDetail(username)
@@ -101,5 +97,9 @@ class DetailViewModel: ViewModel() {
             }
 
         })
+    }
+
+    companion object {
+        private val TAG = DetailViewModel::class.java.simpleName
     }
 }
