@@ -3,13 +3,23 @@ package com.example.userbrowser
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.userbrowser.databinding.ActivityDetailBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var viewModel: DetailViewModel
+
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,13 +28,25 @@ class DetailActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[DetailViewModel::class.java]
 
+        binding.vpFollowersFollowing.adapter = SectionPagerAdapter(this)
+
+        TabLayoutMediator(
+            binding.tabFollowersFollowing,
+            binding.vpFollowersFollowing
+        ) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+
+        supportActionBar?.elevation = 0f
+
         observeViewModel()
 
     }
 
     private fun observeViewModel() {
         val username = intent.getStringExtra("username")
-        viewModel.getUserDetail(username)
+        viewModel.getUserData(username)
+
         viewModel.isLoading.observe(this) {
             setProgressBar(it)
         }
@@ -51,7 +73,7 @@ class DetailActivity : AppCompatActivity() {
         if (loading == true) {
             binding.progressBar.visibility = View.VISIBLE
         } else {
-            binding.progressBar.visibility = View.INVISIBLE
+            binding.progressBar.visibility = View.GONE
             binding.civUserDetailAvatar.visibility = View.VISIBLE
             binding.tvDetailUsername.visibility = View.VISIBLE
             binding.tvDetailFullName.visibility = View.VISIBLE

@@ -9,8 +9,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_following"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="350dp"
         tools:listitem="@layout/item_list_user"
-        android:paddingBottom="70dp" />
+        android:paddingBottom="70dp"
+        android:clipToPadding="false"/>
 
 </FrameLayout>
