@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import com.example.userbrowser.UserItem
 import com.example.userbrowser.databinding.ActivityMainBinding
 import com.example.userbrowser.ui.detail.DetailActivity
 import com.example.userbrowser.ui.UserAdapter
+import com.example.userbrowser.ui.favorite.FavoriteActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -46,6 +48,25 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_item, menu)
 
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_favorite -> {
+                Intent(this@MainActivity, FavoriteActivity::class.java).also {
+                    startActivity(it)
+                }
+
+                return true
+            }
+            R.id.action_setting -> {
+                //TODO: Create setting menu
+
+                return true
+            }
+
+            else -> return true
+        }
     }
 
     private fun observeViewModel() {

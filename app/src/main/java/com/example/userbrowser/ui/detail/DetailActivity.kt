@@ -2,6 +2,7 @@ package com.example.userbrowser.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
@@ -25,8 +26,15 @@ class DetailActivity : AppCompatActivity() {
         binding.vpFollowersFollowing.adapter = SectionPagerAdapter(this)
 
         observeViewModel()
+    }
 
-        supportActionBar?.elevation = 0f
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_item, menu)
+
+        val actionFavorite = menu?.findItem(R.id.action_favorite)
+        actionFavorite?.isVisible = false
+
+        return true
     }
 
     private fun observeViewModel() {
