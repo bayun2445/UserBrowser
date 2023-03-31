@@ -1,13 +1,18 @@
-package com.example.userbrowser
+package com.example.userbrowser.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.userbrowser.R
+import com.example.userbrowser.UserItem
 import com.example.userbrowser.databinding.ActivityMainBinding
+import com.example.userbrowser.ui.detail.DetailActivity
+import com.example.userbrowser.ui.UserAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -35,6 +40,12 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_item, menu)
+
+        return true
     }
 
     private fun observeViewModel() {

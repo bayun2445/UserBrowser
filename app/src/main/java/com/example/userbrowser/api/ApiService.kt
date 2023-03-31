@@ -1,5 +1,8 @@
-package com.example.userbrowser
+package com.example.userbrowser.api
 
+import com.example.userbrowser.ResponseDetail
+import com.example.userbrowser.ResponseGithub
+import com.example.userbrowser.UserItem
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

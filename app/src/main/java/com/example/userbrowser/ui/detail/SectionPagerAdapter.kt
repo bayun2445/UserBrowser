@@ -1,4 +1,4 @@
-package com.example.userbrowser
+package com.example.userbrowser.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

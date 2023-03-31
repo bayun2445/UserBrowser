@@ -1,4 +1,4 @@
-package com.example.userbrowser
+package com.example.userbrowser.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.userbrowser.R
+import com.example.userbrowser.ResponseDetail
 import com.example.userbrowser.databinding.ActivityDetailBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
