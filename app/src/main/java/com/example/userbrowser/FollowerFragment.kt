@@ -24,8 +24,8 @@ class FollowerFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,6 +61,8 @@ class FollowerFragment : Fragment() {
 
         binding.rvFollower.adapter = adapter
     }
+
+
 
     companion object {
         private const val TAG = "Follower Fragment"
