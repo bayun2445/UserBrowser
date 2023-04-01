@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.userbrowser.R
 import com.example.userbrowser.ResponseDetail
@@ -14,14 +14,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var viewModel: DetailViewModel
+    private val viewModel by viewModels<DetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(this)[DetailViewModel::class.java]
 
         binding.vpFollowersFollowing.adapter = SectionPagerAdapter(this)
 
@@ -42,10 +40,12 @@ class DetailActivity : AppCompatActivity() {
 
         viewModel.apply {
             getUserData(username)
+
             isLoading.observe(this@DetailActivity) {
                 setProgressBar(it)
             }
-            viewModel.userDetail.observe(this@DetailActivity) {
+
+            userDetail.observe(this@DetailActivity) {
                 loadUserDetail(it!!)
             }
         }
