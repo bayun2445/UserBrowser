@@ -25,8 +25,6 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        isFavorite = intent.getBooleanExtra("isFavorite", false)
-
         binding.vpFollowersFollowing.adapter = SectionPagerAdapter(this)
         viewModel = obtainViewModel(this@DetailActivity)
 
@@ -35,6 +33,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setFabFavorite() {
+        isFavorite = intent.getBooleanExtra("isFavorite", false)
+
         binding.fabFavorite.apply {
             viewModel.setFavorite(isFavorite)
 

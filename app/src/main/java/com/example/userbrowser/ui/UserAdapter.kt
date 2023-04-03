@@ -9,7 +9,7 @@ import com.example.userbrowser.database.User
 import com.example.userbrowser.databinding.ItemListUserBinding
 import com.example.userbrowser.helper.UserDiffCallback
 
-class UserAdapter():
+class UserAdapter:
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     private lateinit var clicked: ItemCLicked
     private var listUser = ArrayList<User>()
@@ -18,7 +18,7 @@ class UserAdapter():
         fun click(position: Int)
     }
 
-    fun setListUser(listUser: ArrayList<User>) {
+    fun setListUser(listUser: List<User>) {
         val diffCallback = UserDiffCallback(this.listUser, listUser)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.listUser.clear()
