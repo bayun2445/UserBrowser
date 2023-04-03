@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.userbrowser.R
 import com.example.userbrowser.api.ResponseDetail
+import com.example.userbrowser.database.User
 import com.example.userbrowser.databinding.ActivityDetailBinding
 import com.example.userbrowser.helper.ViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,6 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var viewModel: DetailViewModel
+    private lateinit var currentUser: User
     private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,24 +30,30 @@ class DetailActivity : AppCompatActivity() {
         binding.vpFollowersFollowing.adapter = SectionPagerAdapter(this)
         viewModel = obtainViewModel(this@DetailActivity)
 
-        setFabFavorite()
         observeViewModel()
+        setFabFavorite()
     }
 
     private fun setFabFavorite() {
         binding.fabFavorite.apply {
-            setFabFavoriteIcon(isFavorite)
+            viewModel.setFavorite(isFavorite)
 
             setOnClickListener {
                 isFavorite = !isFavorite
-                setFabFavoriteIcon(isFavorite)
+                viewModel.setFavorite(isFavorite)
+
+                if (isFavorite) {
+                    viewModel.addToFavorite(currentUser)
+                } else {
+                    viewModel.removeFromFavorite(currentUser)
+                }
             }
         }
     }
 
-    private fun setFabFavoriteIcon(isFav: Boolean) {
+    private fun setFabFavoriteIcon(isFav: Boolean?) {
         binding.fabFavorite.apply {
-            if (isFav) {
+            if (isFav!!) {
                 setImageResource(R.drawable.ic_favorite)
             } else {
                 setImageResource(R.drawable.ic_favorite_border)
@@ -80,10 +88,19 @@ class DetailActivity : AppCompatActivity() {
             userDetail.observe(this@DetailActivity) {
                 loadUserDetail(it!!)
             }
+
+            isFavorite.observe(this@DetailActivity) {
+                setFabFavoriteIcon(it)
+            }
         }
     }
 
     private fun loadUserDetail(userDetail: ResponseDetail) {
+        currentUser = User(
+            userDetail.login!!,
+            userDetail.avatarUrl
+        )
+
         Glide.with(this)
             .load(userDetail.avatarUrl)
             .placeholder(R.color.github_white)
