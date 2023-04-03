@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.userbrowser.UserItem
+import com.example.userbrowser.api.UserItem
 import com.example.userbrowser.databinding.ItemListUserBinding
 
 class UserAdapter(private val listUser: List<UserItem?>?):

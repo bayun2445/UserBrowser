@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.userbrowser.UserItem
+import com.example.userbrowser.api.UserItem
 import com.example.userbrowser.databinding.FragmentFollsBinding
 import com.example.userbrowser.ui.UserAdapter
 

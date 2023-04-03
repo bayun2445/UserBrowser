@@ -4,26 +4,58 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.userbrowser.R
-import com.example.userbrowser.ResponseDetail
+import com.example.userbrowser.api.ResponseDetail
 import com.example.userbrowser.databinding.ActivityDetailBinding
+import com.example.userbrowser.helper.ViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private val viewModel by viewModels<DetailViewModel>()
+    private lateinit var viewModel: DetailViewModel
+    private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.vpFollowersFollowing.adapter = SectionPagerAdapter(this)
+        isFavorite = intent.getBooleanExtra("isFavorite", false)
 
+        binding.vpFollowersFollowing.adapter = SectionPagerAdapter(this)
+        viewModel = obtainViewModel(this@DetailActivity)
+
+        setFabFavorite()
         observeViewModel()
+    }
+
+    private fun setFabFavorite() {
+        binding.fabFavorite.apply {
+            setFabFavoriteIcon(isFavorite)
+
+            setOnClickListener {
+                isFavorite = !isFavorite
+                setFabFavoriteIcon(isFavorite)
+            }
+        }
+    }
+
+    private fun setFabFavoriteIcon(isFav: Boolean) {
+        binding.fabFavorite.apply {
+            if (isFav) {
+                setImageResource(R.drawable.ic_favorite)
+            } else {
+                setImageResource(R.drawable.ic_favorite_border)
+            }
+        }
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory)[DetailViewModel::class.java]
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

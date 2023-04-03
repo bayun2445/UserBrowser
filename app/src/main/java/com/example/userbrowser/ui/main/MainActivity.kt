@@ -10,7 +10,7 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.userbrowser.R
-import com.example.userbrowser.UserItem
+import com.example.userbrowser.api.UserItem
 import com.example.userbrowser.databinding.ActivityMainBinding
 import com.example.userbrowser.ui.detail.DetailActivity
 import com.example.userbrowser.ui.UserAdapter

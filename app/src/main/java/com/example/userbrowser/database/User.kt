@@ -11,8 +11,8 @@ import kotlinx.parcelize.Parcelize
 data class User(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo("username")
-    val username: String = "",
+    var username: String = "",
 
     @ColumnInfo("avatar_url")
-    val avatarUrl: String? = null
+    var avatarUrl: String? = null,
 ) : Parcelable

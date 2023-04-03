@@ -1,12 +1,11 @@
 package com.example.userbrowser.database
 
 import android.content.Context
-import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Note::class], version = 1)
+@Database(entities = [User::class], version = 1)
 abstract class UserRoomDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
 

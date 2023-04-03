@@ -1,4 +1,4 @@
-package com.example.userbrowser
+package com.example.userbrowser.api
 
 import com.google.gson.annotations.SerializedName
 

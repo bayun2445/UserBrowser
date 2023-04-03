@@ -8,7 +8,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/github_blue</item>
         <item name="colorSecondaryVariant">#4D7DBA</item>
-        <item name="colorOnSecondary">@color/github_dark_blue</item>
+        <item name="colorOnSecondary">@color/github_white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
