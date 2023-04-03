@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.userbrowser.api.UserItem
+import com.example.userbrowser.database.User
 import com.example.userbrowser.databinding.FragmentFollsBinding
 import com.example.userbrowser.ui.UserAdapter
 
@@ -70,8 +71,17 @@ class FollsFragment(private val section: String) : Fragment() {
         }
     }
 
-    private fun loadFolls(listFollss: List<UserItem?>) {
-        val adapter = UserAdapter(listFollss)
+    private fun loadFolls(listFolls: List<UserItem?>) {
+        val newListUser = ArrayList<User>()
+        listFolls.map {
+            val user = User(
+                it!!.login!!,
+                it.avatarUrl
+            )
+            newListUser.add(user)
+        }
+        val adapter = UserAdapter()
+        adapter.setListUser(newListUser)
         adapter.setClicked(object: UserAdapter.ItemCLicked {
             override fun click(position: Int) {
                 Log.d(TAG, "pos: $position clicked")

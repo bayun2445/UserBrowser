@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.userbrowser.R
 import com.example.userbrowser.api.UserItem
+import com.example.userbrowser.database.User
 import com.example.userbrowser.databinding.ActivityMainBinding
 import com.example.userbrowser.ui.detail.DetailActivity
 import com.example.userbrowser.ui.UserAdapter
@@ -101,7 +102,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadUserData(listUser: List<UserItem?>?) {
-        val adapter = UserAdapter(listUser!!)
+        val newListUser = ArrayList<User>()
+        listUser!!.map {
+            val user = User(
+                it!!.login!!,
+                it.avatarUrl
+            )
+            newListUser.add(user)
+        }
+
+        val adapter = UserAdapter()
+        adapter.setListUser(newListUser)
 
         //User item click listener
         adapter.setClicked(object : UserAdapter.ItemCLicked {
