@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.userbrowser.ui.favorite.FavoriteViewModel
 import com.example.userbrowser.ui.detail.DetailViewModel
+import com.example.userbrowser.ui.main.MainViewModel
 import com.example.userbrowser.ui.setting.SettingViewModel
 
 class ViewModelFactory private constructor(
     private val mApplication: Application? = null,
-    private val pref: SettingPreference? = null
+    private val mPref: SettingPreference? = null
 ): ViewModelProvider.NewInstanceFactory() {
 
 
@@ -34,7 +35,9 @@ class ViewModelFactory private constructor(
         } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
             return FavoriteViewModel(application = mApplication!!) as T
         } else if (modelClass.isAssignableFrom(SettingViewModel::class.java)) {
-            return SettingViewModel(pref = pref!!) as T
+            return SettingViewModel(pref = mPref!!) as T
+        } else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            return MainViewModel(pref = mPref!!) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class ${modelClass.name}")

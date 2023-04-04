@@ -4,23 +4,21 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.example.userbrowser.api.ResponseGithub
 import com.example.userbrowser.api.UserItem
 import com.example.userbrowser.api.ApiConfig
+import com.example.userbrowser.helper.SettingPreference
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel: ViewModel() {
+class MainViewModel(private val pref: SettingPreference): ViewModel() {
     private val _listUsers = MutableLiveData<List<UserItem?>?>()
     private val _isLoading = MutableLiveData<Boolean?>()
 
     val listUser: LiveData<List<UserItem?>?> = _listUsers
     val isLoading: LiveData<Boolean?> = _isLoading
-
-    companion object {
-        private val TAG = MainViewModel::class.java.simpleName
-    }
 
     init {
         searchUser()
@@ -49,5 +47,13 @@ class MainViewModel: ViewModel() {
             }
 
         })
+    }
+
+    fun getThemeSettings(): LiveData<Boolean> {
+        return pref.getThemeSetting().asLiveData()
+    }
+
+    companion object {
+        private val TAG = MainViewModel::class.java.simpleName
     }
 }

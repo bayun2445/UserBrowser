@@ -5,7 +5,7 @@
     android:layout_height="66dp"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="5dp"
-    app:cardBackgroundColor="@color/github_white"
+    app:cardBackgroundColor="?colorOnPrimary"
     app:cardElevation="5dp"
     app:cardCornerRadius="10dp">
 
@@ -30,7 +30,7 @@
             android:layout_marginStart="10dp"
             android:fontFamily="@font/poppins"
             android:text="@string/username"
-            android:textColor="@color/github_dark_blue"
+            android:textColor="?android:textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/civ_user_avatar"
             app:layout_constraintStart_toEndOf="@+id/civ_user_avatar"

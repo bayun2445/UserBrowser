@@ -13,6 +13,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="searchViewStyle">@style/CustomSearchView</item>
+        <item name="android:textColorPrimary">@color/black</item>
     </style>
     <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:background">@drawable/bg_search_view</item>
