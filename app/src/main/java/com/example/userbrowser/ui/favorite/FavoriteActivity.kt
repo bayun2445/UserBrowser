@@ -4,19 +4,24 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.userbrowser.R
 import com.example.userbrowser.databinding.ActivityFavoriteBinding
 import com.example.userbrowser.helper.ViewModelFactory
 import com.example.userbrowser.ui.UserAdapter
 import com.example.userbrowser.ui.detail.DetailActivity
+import com.example.userbrowser.ui.setting.SettingActivity
 
 class FavoriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoriteBinding
-    private lateinit var viewModel: FavoriteViewModel
     private lateinit var adapter: UserAdapter
+
+    private val viewModel by viewModels<FavoriteViewModel> {
+        ViewModelFactory.getInstance(application)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +30,6 @@ class FavoriteActivity : AppCompatActivity() {
 
         supportActionBar?.title = getString(R.string.favorite)
         binding.rvFavoriteUsers.layoutManager = LinearLayoutManager(this)
-
-        viewModel = obtainViewModel(this@FavoriteActivity)
 
         loadFavoriteUserData()
     }
@@ -53,16 +56,21 @@ class FavoriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun obtainViewModel(activity: AppCompatActivity): FavoriteViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(this@FavoriteActivity, factory)[FavoriteViewModel::class.java]
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_item, menu)
 
         val actionFavorite = menu?.findItem(R.id.action_favorite)
         actionFavorite?.isVisible = false
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_setting) {
+            Intent(this@FavoriteActivity, SettingActivity::class.java).also {
+                startActivity(it)
+            }
+        }
 
         return true
     }

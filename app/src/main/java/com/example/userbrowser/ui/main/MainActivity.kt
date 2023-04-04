@@ -16,6 +16,7 @@ import com.example.userbrowser.databinding.ActivityMainBinding
 import com.example.userbrowser.ui.detail.DetailActivity
 import com.example.userbrowser.ui.UserAdapter
 import com.example.userbrowser.ui.favorite.FavoriteActivity
+import com.example.userbrowser.ui.setting.SettingActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -59,7 +60,9 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_setting -> {
-                //TODO: Create setting menu
+                Intent(this@MainActivity, SettingActivity::class.java).also {
+                    startActivity(it)
+                }
 
                 return true
             }
