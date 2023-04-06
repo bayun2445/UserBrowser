@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="10dp"
-    tools:context=".FollowerFragment">
+    tools:context=".ui.detail.FollsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_follower"
+        android:id="@+id/rv_folls"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         tools:listitem="@layout/item_list_user"
@@ -15,7 +15,7 @@
         android:clipToPadding="false"/>
 
     <TextView
-        android:id="@+id/tv_follower_not_found"
+        android:id="@+id/tv_folls_not_found"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/not_found"

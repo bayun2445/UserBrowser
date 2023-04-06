@@ -1,14 +1,31 @@
-package com.example.userbrowser
+package com.example.userbrowser.ui.main
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.userbrowser.R
+import com.example.userbrowser.api.UserItem
+import com.example.userbrowser.database.User
 import com.example.userbrowser.databinding.ActivityMainBinding
+import com.example.userbrowser.helper.SettingPreference
+import com.example.userbrowser.helper.ViewModelFactory
+import com.example.userbrowser.ui.detail.DetailActivity
+import com.example.userbrowser.ui.UserAdapter
+import com.example.userbrowser.ui.favorite.FavoriteActivity
+import com.example.userbrowser.ui.setting.SettingActivity
 
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
@@ -18,7 +35,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        val pref = SettingPreference.getInstance(dataStore)
+        viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(pref = pref))[MainViewModel::class.java]
 
         binding.rvUsers.layoutManager = LinearLayoutManager(this)
 
@@ -37,6 +55,33 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_item, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_favorite -> {
+                Intent(this@MainActivity, FavoriteActivity::class.java).also {
+                    startActivity(it)
+                }
+
+                return true
+            }
+            R.id.action_setting -> {
+                Intent(this@MainActivity, SettingActivity::class.java).also {
+                    startActivity(it)
+                }
+
+                return true
+            }
+
+            else -> return true
+        }
+    }
+
     private fun observeViewModel() {
         viewModel.listUser.observe(this) {
             if (it!!.isEmpty()) {
@@ -52,6 +97,14 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.isLoading.observe(this) {
             setProgressBar(it)
+        }
+
+        viewModel.getThemeSettings().observe(this) {
+            if (it) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         }
     }
 
@@ -71,7 +124,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadUserData(listUser: List<UserItem?>?) {
-        val adapter = UserAdapter(listUser!!)
+        val newListUser = ArrayList<User>()
+        listUser!!.map {
+            val user = User(
+                it!!.login!!,
+                it.avatarUrl
+            )
+            newListUser.add(user)
+        }
+
+        val adapter = UserAdapter()
+        adapter.setListUser(newListUser)
 
         //User item click listener
         adapter.setClicked(object : UserAdapter.ItemCLicked {

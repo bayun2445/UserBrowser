@@ -1,5 +1,6 @@
-package com.example.userbrowser
+package com.example.userbrowser.api
 
+import com.example.userbrowser.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -1,4 +1,4 @@
-package com.example.userbrowser
+package com.example.userbrowser.api
 
 import retrofit2.Call
 import retrofit2.http.GET
