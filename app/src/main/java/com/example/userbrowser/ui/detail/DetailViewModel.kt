@@ -19,7 +19,7 @@ class DetailViewModel(application: Application): ViewModel() {
     private val _isLoading = MutableLiveData<Boolean?>()
     private val _followers = MutableLiveData<List<UserItem?>?>()
     private val _followings = MutableLiveData<List<UserItem?>?>()
-    private var _isFavorite = MutableLiveData<Boolean?>()
+    private val _isFavorite = MutableLiveData<Boolean?>()
 
     val userDetail: LiveData<ResponseDetail?> = _userDetail
     val isLoading: LiveData<Boolean?> = _isLoading
@@ -111,6 +111,10 @@ class DetailViewModel(application: Application): ViewModel() {
 
     fun setFavorite(isFavorite: Boolean) {
         _isFavorite.value = isFavorite
+    }
+
+    fun checkUserIsFavorite(username: String): LiveData<User> {
+        return mUserRepository.getUserByUsername(username)
     }
 
     fun addToFavorite(user: User) {

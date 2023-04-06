@@ -51,6 +51,7 @@ class FavoriteActivity : AppCompatActivity() {
                 binding.rvFavoriteUsers.adapter = adapter
                 binding.rvFavoriteUsers.setHasFixedSize(true)
             } else {
+                binding.rvFavoriteUsers.visibility = View.INVISIBLE
                 binding.tvFavoriteNotFound.visibility = View.VISIBLE
             }
         }

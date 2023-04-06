@@ -26,7 +26,6 @@ class SettingPreference private constructor(private val dataStore: DataStore<Pre
         @Volatile
         private var instance: SettingPreference? = null
 
-        @JvmStatic
         fun getInstance(dataStore: DataStore<Preferences>): SettingPreference {
             return instance ?: synchronized(this) {
                 val instance = SettingPreference(dataStore)

@@ -20,7 +20,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var currentUser: User
-    private var isFavorite = false
+    private var isFavoriteDetail = false
 
     private val viewModel by viewModels<DetailViewModel> {
         ViewModelFactory.getInstance(application)
@@ -38,16 +38,14 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setFabFavorite() {
-        isFavorite = intent.getBooleanExtra("isFavorite", false)
-
         binding.fabFavorite.apply {
-            viewModel.setFavorite(isFavorite)
+            viewModel.setFavorite(isFavoriteDetail)
 
             setOnClickListener {
-                isFavorite = !isFavorite
-                viewModel.setFavorite(isFavorite)
+                isFavoriteDetail = !isFavoriteDetail
+                viewModel.setFavorite(isFavoriteDetail)
 
-                if (isFavorite) {
+                if (isFavoriteDetail) {
                     viewModel.addToFavorite(currentUser)
                 } else {
                     viewModel.removeFromFavorite(currentUser)
@@ -100,8 +98,14 @@ class DetailActivity : AppCompatActivity() {
                 loadUserDetail(it!!)
             }
 
+            checkUserIsFavorite(username!!).observe(this@DetailActivity) {
+                val isFavorite = it != null
+                setFavorite(isFavorite)
+            }
+
             isFavorite.observe(this@DetailActivity) {
                 setFabFavoriteIcon(it)
+                isFavoriteDetail = it ?: false
             }
         }
     }

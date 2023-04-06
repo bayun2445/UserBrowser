@@ -13,7 +13,7 @@ import com.example.userbrowser.database.User
 import com.example.userbrowser.databinding.FragmentFollsBinding
 import com.example.userbrowser.ui.UserAdapter
 
-class FollsFragment(private val section: String) : Fragment() {
+class FollsFragment : Fragment() {
     private var _binding: FragmentFollsBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: DetailViewModel
@@ -35,16 +35,18 @@ class FollsFragment(private val section: String) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvFolls.layoutManager = LinearLayoutManager(requireActivity())
-        
-        when(section) {
+
+        when(arguments?.getString(SECTION_KEY)) {
             "follower" -> {
                 viewModel.followers.observe(requireActivity()) {
-                    if (it!!.isNotEmpty()) {
-                        loadFolls(it)
-                    } else {
-                        binding.apply {
-                            tvFollsNotFound.visibility = View.VISIBLE
-                            rvFolls.visibility = View.GONE
+                    it?.let {
+                        if (it.isNotEmpty()) {
+                            loadFolls(it)
+                        } else {
+                            binding.apply {
+                                tvFollsNotFound.visibility = View.VISIBLE
+                                rvFolls.visibility = View.GONE
+                            }
                         }
                     }
                 }
@@ -52,12 +54,14 @@ class FollsFragment(private val section: String) : Fragment() {
             
             "following" -> {
                 viewModel.followings.observe(requireActivity()) {
-                    if (it!!.isNotEmpty()) {
-                        loadFolls(it)
-                    } else {
-                        binding.apply {
-                            tvFollsNotFound.visibility = View.VISIBLE
-                            rvFolls.visibility = View.GONE
+                    it?.let {
+                        if (it.isNotEmpty()) {
+                            loadFolls(it)
+                        } else {
+                            binding.apply {
+                                tvFollsNotFound.visibility = View.VISIBLE
+                                rvFolls.visibility = View.GONE
+                            }
                         }
                     }
                 }
@@ -65,8 +69,10 @@ class FollsFragment(private val section: String) : Fragment() {
         }
 
         viewModel.isLoading.observe(requireActivity()) {
-            if (!it!!) {
-                binding.progressBar.visibility = View.GONE
+            it?.let {
+                if (!it) {
+                    binding.progressBar.visibility = View.GONE
+                }
             }
         }
     }
@@ -75,7 +81,7 @@ class FollsFragment(private val section: String) : Fragment() {
         val newListUser = ArrayList<User>()
         listFolls.map {
             val user = User(
-                it!!.login!!,
+                it?.login!!,
                 it.avatarUrl
             )
             newListUser.add(user)
@@ -95,5 +101,6 @@ class FollsFragment(private val section: String) : Fragment() {
 
     companion object {
         private const val TAG = "Folls Fragment"
+        private const val SECTION_KEY = "section"
     }
 }

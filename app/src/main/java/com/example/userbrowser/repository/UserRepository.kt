@@ -17,6 +17,10 @@ class UserRepository(application: Application) {
         mUserDao = db.userDao()
     }
 
+    fun getUserByUsername(username: String): LiveData<User> {
+        return mUserDao.getFavoriteUserByUsername(username)
+    }
+
     fun getAllFavoriteUser(): LiveData<List<User>> {
         return mUserDao.queryAll()
     }

@@ -16,4 +16,6 @@ interface UserDao {
 
     @Query("SELECT * FROM user")
     fun queryAll(): LiveData<List<User>>
+    @Query("SELECT * FROM user WHERE username = :username")
+    fun getFavoriteUserByUsername(username: String): LiveData<User>
 }
